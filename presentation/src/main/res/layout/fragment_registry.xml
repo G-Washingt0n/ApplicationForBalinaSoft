@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.pgmail.martsulg.applicationforbalinasoft.RegistryViewModel"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        android:hint="Login"
+        android:text="@={viewModel.login2reg}" />
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:hint="Password"
+        android:text="@={viewModel.firstPassword}"/>
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:hint="Repeat password"
+        android:text="@={viewModel.secondPassword}" />
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="24sp"
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+        android:text="Sign up"
+        android:textColor="@color/headerText"
+        android:background="@color/greenHeader"
+        android:onClick="@{() -> viewModel.onSignUpClick()}"/>
+
+</LinearLayout>
+    </layout>
