@@ -23,6 +23,7 @@ public class LogInViewModel implements BaseViewModel {
     private int id;
     private String token;
 
+
     FragmentActivity activity;
     Intent intent;
 
@@ -76,8 +77,16 @@ public class LogInViewModel implements BaseViewModel {
                     Log.e("Otvet id: ", String.valueOf(id));
                     Log.e("Otvet token: ", token);
 
-                    intent.putExtra("Token",token);
-                    intent.putExtra("Login", login);
+
+
+                    EntryActivity.setPreferences("Token",token);
+                    EntryActivity.setPreferences("Login", login);
+
+
+                    Log.e("Shared Token:", EntryActivity.preferences.getString("Token",null));
+                    Log.e("Shared Login:", EntryActivity.preferences.getString("Login",null));
+                    //intent.putExtra("Token",token);
+                    //intent.putExtra("Login", login);
                     activity.startActivity(intent);
 
 

@@ -1,9 +1,9 @@
 package com.pgmail.martsulg.applicationforbalinasoft;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,22 +13,26 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class ContentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private String accessToken;
     private String userLogin;
+    public TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
 
-        accessToken = getIntent().getExtras().getString("Token");
-        userLogin = getIntent().getExtras().getString("Login");
-        Log.e("Token", accessToken);
-        Log.e("Login", userLogin);
+            accessToken = EntryActivity.preferences.getString("Token",null);
+            userLogin = EntryActivity.preferences.getString("Login",null);
+
+        Log.e("Token in Context", accessToken);
+        Log.e("Login in Context", userLogin);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -37,8 +41,10 @@ public class ContentActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(ContentActivity.this,CameraActivity.class);
+                startActivity(intent);
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
             }
         });
 
@@ -47,6 +53,9 @@ public class ContentActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        //textView = (TextView) findViewById(R.id.navHeadTextView);
+        //textView.setText(userLogin);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -65,24 +74,18 @@ public class ContentActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.content, menu);
+        textView = (TextView) findViewById(R.id.navHeadTextView);
+        textView.setText(userLogin);
+
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
-        return super.onOptionsItemSelected(item);
-    }
+
+
+
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -93,5 +96,17 @@ public class ContentActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Сохраните состояние UI в переменную savedInstanceState.
+        // Она будет передана в метод onCreate при закрытии и
+        // повторном запуске процесса.
+        super.onSaveInstanceState(savedInstanceState);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

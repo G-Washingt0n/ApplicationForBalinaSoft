@@ -4,6 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.pgmail.martsulg.applicationforbalinasoft"
         minSdkVersion 18
         targetSdkVersion 26

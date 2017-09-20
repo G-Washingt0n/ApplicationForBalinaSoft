@@ -37,8 +37,8 @@ public class RestService {
 
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .readTimeout(10, TimeUnit.SECONDS)
-                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(20, TimeUnit.SECONDS)
                 .addInterceptor(logging)
                 .build();
 
@@ -47,12 +47,11 @@ public class RestService {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://213.184.248.43:9099/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson)) //парсить с помощью gson
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient).build();
 
         restApi = retrofit.create(RestApi.class);
     }
-
 
     public Observable<ResponseAnswer> createProfile(Profile profile) {
         return restApi.createProfile(profile);
